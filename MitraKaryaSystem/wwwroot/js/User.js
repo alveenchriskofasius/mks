@@ -19,13 +19,14 @@ let Table = {
                 data: null,
                 render: function () {
                     return `
-                    <a class="btn btn-warning edit" href="#">
-                        <i class="fa fa-pencil"></i> 
-                    </a>
-                    <span style="margin: 0 5px;"></span>
-                    <a class="btn btn-danger delete">
-                        <i class="fa fa-trash"></i> 
-                    </a>
+                  <div class="btn-group" role="group" aria-label="Action Buttons">
+                <a class="btn btn-warning edit" href="#" role="button">
+                    <i class="fa fa-pencil"></i> Edit
+                </a>
+                <a class="btn btn-danger delete" role="button">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+            </div>
             `;
                 },
                 "orderable": false
