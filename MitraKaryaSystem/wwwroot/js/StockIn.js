@@ -84,7 +84,10 @@ let Table = {
                     return type == 'display' ? `<input type="number" class="form-control change" value="${data}" min="1" />` : data;
                 }
             },
-            { data: 'unitPrice' },
+            {
+                data: 'unitPrice',
+                render: $.fn.dataTable.render.number(',', '.', 2)
+            },
             { data: 'supplierID', visible: false },
             { data: 'barcode', visible: false },
             { data: 'supplier' },
@@ -109,6 +112,8 @@ let Table = {
             "searching": false,
             "responsive": true,
             "columns": columns,
+            "decimal": ",",
+            "thousands": ".",
             "data": dataList.length > 0 ? dataList : null
         });
         tableID.find('tbody').unbind();
@@ -163,17 +168,26 @@ let Table = {
             { data: 'no' },
             { data: 'date' },
             { data: 'amount' },
+            { data: 'createdBy' },
+            { data: 'updatedBy' },
+
             {
                 data: null,
                 render: function () {
                     return `
-                <a class="btn btn-danger delete">
-                    <i class="fa fa-trash"></i> 
+            <div class="btn-group" role="group" aria-label="Action Buttons">
+                <a class="btn btn-warning edit" href="#" role="button">
+                    <i class="fa fa-pencil"></i> Edit
                 </a>
-            `;
+                <a class="btn btn-danger delete" role="button">
+                    <i class="fa fa-trash"></i> Delete
+                </a>
+            </div>
+        `;
                 },
-                "orderable": false
+                orderable: false
             }
+
         ];
         let table = tableID.DataTable({
             "deferRender": true,
@@ -188,9 +202,9 @@ let Table = {
         });
         tableID.find('tbody').unbind();
 
-        $('#tableSearch tbody').on('dblclick', 'tr', function () {
-            var data = table.row(this).data();
-            Form.FillForm(data.id, true);
+        tableID.find('tbody').on('click', '.edit', function (e) {
+            let row = table.row($(this).parents('tr')).data();
+            Form.FillForm(row.id, true);
             $('#searchModal').modal('hide');
         });
         tableID.find('tbody').on('click', '.delete', function (e) {
