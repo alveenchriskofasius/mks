@@ -8,43 +8,7 @@ let Button = {
         $('#buttonAdd').click(function (event) {
             event.preventDefault();
 
-            var form = $('#stockInDetailForm')[0];
-            var selectedProduct = $('#selectProduct');
-            var quantityInput = $('#quantity');
-
-            // Manually trigger the product selection validation
-            if (!selectedProduct.val()) {
-                selectedProduct.addClass('is-invalid');
-                return;
-            } else {
-                selectedProduct.removeClass('is-invalid');
-            }
-
-            // Manually trigger the quantity input validation
-            if (!quantityInput.val()) {
-                quantityInput.addClass('is-invalid');
-                return;
-            } else {
-                quantityInput.removeClass('is-invalid');
-            }
-
-            // Manually trigger the form validation
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add('was-validated');
-                return;
-            }
-
-            // If the form is valid, continue with adding a row to the DataTable
-            event.preventDefault();
-            event.stopPropagation();
-
-            let barcode = selectedProduct.find('option:selected').data('barcode');
-            Control.CheckProduct(barcode, false);
-            // Remove 'was-validated' class to reset validation styling
-            form.classList.remove('was-validated');
-            Form.ResetProductForm();
+            Control.AddProduct();
         });
         $('#buttonSave').click(function (event) {
             event.preventDefault();
@@ -247,6 +211,17 @@ let Control = {
         Control.Product();
         Control.ProductSelect();
         Control.Barcode();
+        Control.Quantity();
+
+    },
+    Quantity: function () {
+        $('#quantity').keypress(function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                Control.AddProduct();
+                $('#quantity').blur();
+            }
+        });
     },
     Barcode: function () {
         $('#barcode').keypress(function (event) {
@@ -333,6 +308,45 @@ let Control = {
             Form.FillFormProductBySelect(data);
         });
     },
+    AddProduct: function () {
+        var form = $('#stockInDetailForm')[0];
+        var selectedProduct = $('#selectProduct');
+        var quantityInput = $('#quantity');
+
+        // Manually trigger the product selection validation
+        if (!selectedProduct.val()) {
+            selectedProduct.addClass('is-invalid');
+            return;
+        } else {
+            selectedProduct.removeClass('is-invalid');
+        }
+
+        // Manually trigger the quantity input validation
+        if (!quantityInput.val()) {
+            quantityInput.addClass('is-invalid');
+            return;
+        } else {
+            quantityInput.removeClass('is-invalid');
+        }
+
+        // Manually trigger the form validation
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+
+        // If the form is valid, continue with adding a row to the DataTable
+        event.preventDefault();
+        event.stopPropagation();
+
+        let barcode = selectedProduct.find('option:selected').data('barcode');
+        Control.CheckProduct(barcode, false);
+        // Remove 'was-validated' class to reset validation styling
+        form.classList.remove('was-validated');
+        Form.ResetProductForm()
+    }
 }
 let Form = {
     FillFormProductBySelect: function (product) {
@@ -342,6 +356,7 @@ let Form = {
             data: { id: product.id },
             success: function (result) {
                 $('#stockInDetailForm').html(result);
+                Control.Quantity();
             },
             error: function (error) {
                 toastr.error(error, 'Error loading user data');
