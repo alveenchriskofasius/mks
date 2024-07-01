@@ -108,7 +108,9 @@ namespace API.Repository
                 ID = x.ID,
                 No = x.No,
                 Date = x.Date.ToString("dd-MM-yyyy"),
-                Amount = x.Amount,
+                Amount = string.Format("{0:n}", x.Amount), // Format Amount as IDR
+                CreatedBy = x.CreatedBy,
+                UpdatedBy = x.UpdatedBy,
             }).ToListAsync();
         }
         public Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id)
@@ -129,10 +131,10 @@ namespace API.Repository
                     var newTrade = new Trade
                     {
                         Date = stockInModel.Date,
-                        StatusID = 0,
-                        No = _procedure.uspGenerateNoAsync("SO", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
+                        StatusID = 1,
+                        No = _procedure.uspGenerateNoAsync("SI", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
                         CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name,
-                        TradeTypeID = 1
+                        TradeTypeID = 3
                     };
                     _context.Trades.Add(newTrade);
                     await _context.SaveChangesAsync();
@@ -169,8 +171,17 @@ namespace API.Repository
         {
             try
             {
+                var product = await _context.Products.FindAsync(stockInDetailModel.ProductID);
+                var trade = await _context.Trades.FindAsync(tradeID);
+
+                if (product == null)
+                {
+                    return new { success = false, result = "Product not found." };
+                }
+
                 if (stockInDetailModel.ID == 0)
                 {
+                    // Add new StockInItem
                     var newProduct = new StockInItem
                     {
                         TradeID = tradeID,
@@ -179,22 +190,28 @@ namespace API.Repository
                     };
 
                     _context.StockInItems.Add(newProduct);
-                    await _context.SaveChangesAsync();
                 }
                 else
                 {
+                    // Update existing StockInItem
                     var existingProduct = await _context.StockInItems.FindAsync(stockInDetailModel.ID);
-                    if (existingProduct != null)
-                    {
-                        existingProduct.ProductID = stockInDetailModel.ProductID;
-                        existingProduct.Quantity = stockInDetailModel.Quantity;
-                        await _context.SaveChangesAsync();
-                    }
-                    else
+                    if (existingProduct == null)
                     {
                         return new { success = false, result = "Stock In item not found." };
                     }
+
+                    // Adjust stock quantity based on quantity change
+                    var quantityChange = stockInDetailModel.Quantity - existingProduct.Quantity;
+                    existingProduct.Quantity = stockInDetailModel.Quantity;
+
+                    // Adjust product stock quantity based on quantity change
+                    product.StockQuantity += quantityChange;
+
+                    // Adjust trade amount based on unit price and quantity change
+                    trade.Amount += product.UnitPrice * quantityChange;
                 }
+
+                await _context.SaveChangesAsync();
 
                 return new { success = true };
             }
@@ -203,6 +220,7 @@ namespace API.Repository
                 return new { success = false, result = e.Message };
             }
         }
+
 
         public async Task<object> ScanBarcode(string barcode) => (await _procedure.uspBarcodeScanAsync(barcode)) == null ? await Task.FromResult<object>(new { success = false, result = "Barcode not found" }) : (await _procedure.uspBarcodeScanAsync(barcode)).FirstOrDefault();
     }
