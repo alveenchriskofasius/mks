@@ -117,10 +117,6 @@ namespace API.Repository
         {
             return _procedure.uspGetDetailListByIdAsync(id);
         }
-        public Task<List<Trade>> GetPurchaseOrderBySearch()
-        {
-            throw new NotImplementedException();
-        }
         public async Task<object> Save(StockInModel stockInModel)
         {
             try

@@ -1,5 +1,4 @@
 ﻿using API.Context.SP;
-using API.Context.Table;
 using API.Repository.Interfaces;
 using API.Services.Interfaces;
 using MitraKaryaSystem.Models;
@@ -38,11 +37,6 @@ namespace API.Services
         public async Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id)
         {
             return await _repository.GetDetailListById(id);
-        }
-
-        public async Task<List<Trade>> GetPurchaseOrderBySearch()
-        {
-            return await _repository.GetPurchaseOrderBySearch();
         }
 
         public async Task<object> GetTradeList()

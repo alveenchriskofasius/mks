@@ -1,5 +1,4 @@
 ﻿using API.Context.SP;
-using API.Context.Table;
 using MitraKaryaSystem.Models;
 
 namespace API.Services.Interfaces
@@ -8,7 +7,6 @@ namespace API.Services.Interfaces
     {
         Task<StockInModel> FillForm(int id);
         Task<StockInDetailModel> FillFormDetail(int id);
-        Task<List<Trade>> GetPurchaseOrderBySearch();
         Task<object> ScanBarcode(string barcode);
         Task<object> Save(StockInModel stockIn);
         Task<object> GetTradeList();
