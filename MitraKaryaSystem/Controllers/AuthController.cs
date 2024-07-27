@@ -15,10 +15,7 @@ namespace MitraKaryaSystem.Controllers
             _authService = authService;
         }
         [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login()=> View();
 
         public async Task<IActionResult> Logout()
         {
@@ -43,9 +40,6 @@ namespace MitraKaryaSystem.Controllers
             return View();
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
+        public IActionResult AccessDenied()=> View();
     }
 }

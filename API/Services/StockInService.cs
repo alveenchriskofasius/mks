@@ -39,9 +39,9 @@ namespace API.Services
             return await _repository.GetDetailListById(id);
         }
 
-        public async Task<object> GetTradeList()
+        public async Task<object> GetStockInList()
         {
-            return await _repository.GetTradeList();
+            return await _repository.GetStockInList();
         }
 
         public async Task<object> Save(StockInModel stockIn)

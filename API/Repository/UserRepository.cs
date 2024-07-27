@@ -15,19 +15,16 @@ namespace API.Repository
             _sp = procedures;
         }
 
-        public async Task<object> GetUserList()
+        public async Task<object> GetUserList()=> await _context.Users.Select(x => new
         {
-            return await _context.Users.Select(x => new
-            {
-                ID = x.ID,
-                UserName = x.UserName,
-                Name = x.Name,
-                KTP = x.KTP,
-                Email = x.Email,
-                Active = x.Active ? "Active" : "Inactive"
-            })
+            ID = x.ID,
+            UserName = x.UserName,
+            Name = x.Name,
+            KTP = x.KTP,
+            Email = x.Email,
+            Active = x.Active ? "Active" : "Inactive"
+        })
         .ToListAsync();
-        }
 
         public async Task<object> SaveUser(UserModel user)
         {

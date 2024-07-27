@@ -41,7 +41,6 @@ namespace API.Repository
         {
             try
             {
-
                 var product = await _context.StockInItems.FindAsync(id);
                 if (product == null)
                 {
@@ -101,22 +100,9 @@ namespace API.Repository
             }
             return purchaseOrderDetail;
         }
-        public async Task<object> GetTradeList()
-        {
-            return await _context.Trades.Select(x => new
-            {
-                ID = x.ID,
-                No = x.No,
-                Date = x.Date.ToString("dd-MM-yyyy"),
-                Amount = string.Format("{0:n}", x.Amount), // Format Amount as IDR
-                CreatedBy = x.CreatedBy,
-                UpdatedBy = x.UpdatedBy,
-            }).ToListAsync();
-        }
-        public Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id)
-        {
-            return _procedure.uspGetDetailListByIdAsync(id);
-        }
+        public async Task<object> GetStockInList()=> await _procedure.GetStockInListAsync();
+
+        public Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id)=> _procedure.uspGetDetailListByIdAsync(id);
         public async Task<object> Save(StockInModel stockInModel)
         {
             try
@@ -128,7 +114,7 @@ namespace API.Repository
                     {
                         Date = stockInModel.Date,
                         StatusID = 1,
-                        No = _procedure.uspGenerateNoAsync("SI", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
+                        No =  _procedure.uspGenerateNoAsync("SI", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
                         CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name,
                         TradeTypeID = 3
                     };
@@ -195,16 +181,8 @@ namespace API.Repository
                     {
                         return new { success = false, result = "Stock In item not found." };
                     }
-
-                    // Adjust stock quantity based on quantity change
-                    var quantityChange = stockInDetailModel.Quantity - existingProduct.Quantity;
                     existingProduct.Quantity = stockInDetailModel.Quantity;
-
-                    // Adjust product stock quantity based on quantity change
-                    product.StockQuantity += quantityChange;
-
-                    // Adjust trade amount based on unit price and quantity change
-                    trade.Amount += product.UnitPrice * quantityChange;
+                    _context.StockInItems.Update(existingProduct);
                 }
 
                 await _context.SaveChangesAsync();

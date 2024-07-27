@@ -42,11 +42,7 @@ namespace API.Repository
             return permissionModels;
         }
 
-        public async Task<object> GetRoleList()
-        {
-            return await _context.Roles.ToListAsync();
-        }
-
+        public async Task<object> GetRoleList()=> await _context.Roles.ToListAsync();
         public async Task<object> SaveRole(RoleViewModel role)
         {
             try
@@ -81,7 +77,6 @@ namespace API.Repository
                 await Task.FromResult<object>(new { success = false, result = e.Message });
             }
             return new { success = true };
-
         }
 
         private async Task<object> SaveRolePermission(PermissionModel permission, int roleID)

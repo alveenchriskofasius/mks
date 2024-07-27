@@ -42,10 +42,7 @@ namespace API.Repository
             return supplierModel;
         }
 
-        public async Task<object> GetSupplierList()
-        {
-            return Task.FromResult<object>(await _context.Customers.Select(x => new { x.ID, SupplierName = x.Name, x.ContactPerson, x.ContactNumber, x.IsSupplier }).Where(x => x.IsSupplier).ToListAsync());
-        }
+        public async Task<object> GetSupplierList() => Task.FromResult<object>(await _context.Customers.Select(x => new { x.ID, SupplierName = x.Name, x.ContactPerson, x.ContactNumber, x.IsSupplier }).Where(x => x.IsSupplier).ToListAsync());
 
         public async Task SaveSupplier(SupplierModel supplierModel)
         {

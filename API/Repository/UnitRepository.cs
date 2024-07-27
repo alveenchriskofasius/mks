@@ -39,12 +39,9 @@ namespace API.Repository
 
             }
             return Task.FromResult<object>(new { success = true });
+        }
+        public async Task<object> GetUnitList()=> Task.FromResult<object>(await _context.Units.Select(x => new { x.ID, UnitName = x.Name }).ToListAsync());
 
-        }
-        public async Task<object> GetUnitList()
-        {
-            return Task.FromResult<object>(await _context.Units.Select(x => new { x.ID, UnitName = x.Name }).ToListAsync());
-        }
         public async Task<UnitModel> FillFormUnit(int id)
         {
             Unit? unit = await _context.Units.FindAsync(id);

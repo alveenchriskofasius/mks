@@ -49,11 +49,8 @@ namespace API.Repository
             }
             return categoryModel;
         }
-        public async Task<object> GetCategoryList()
-        {
-            return Task.FromResult<object>(await _context.Categories.Select(x => new { x.ID, CategoryName = x.Name }).ToListAsync());
-
-        }
+        public async Task<object> GetCategoryList()=> Task.FromResult<object>(await _context.Categories.Select(x => new { x.ID, CategoryName = x.Name }).ToListAsync());
+       
         public async Task<object> SaveCategory(CategoryModel categoryModel)
         {
             try

@@ -1,4 +1,5 @@
-﻿using API.Services.Interfaces;
+﻿using API.Services;
+using API.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MitraKaryaSystem.Models;
@@ -18,10 +19,7 @@ namespace MitraKaryaSystem.Controllers
             _unitService = unitService;
             _supplierService = supplierService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index()=> View();
         public async Task<IActionResult> Form(int id)
         {
             var data = new ProductViewModel();
@@ -32,59 +30,32 @@ namespace MitraKaryaSystem.Controllers
             }
             return View(data);
         }
-        public async Task<object> GetProductList()
-        {
-            return await _service.GetProductList();
-        }
-        public async Task<object> GetCategoryList()
-        {
-            return await _categoryService.GetCategoryList();
-        }
-        public async Task<object> GetSupplierList()
-        {
-            return await _supplierService.GetSupplierList();
-        }
-        public async Task<object> GetUnitList()
-        {
-            return await _unitService.GetUnitList();
-        }
-        public async Task<JsonResult> SaveProduct(ProductViewModel product)
-        {
-            return Json(await _service.SaveProduct(product.ProductModel));
-        }
-        public async Task<JsonResult> SaveCategory(CategoryModel category)
-        {
-            return Json(await _categoryService.SaveCategory(category));
-        }
-        public async Task<JsonResult> SaveUnit(UnitModel unit)
-        {
-            return Json(await _unitService.SaveUnit(unit));
-        }
-        public async Task<JsonResult> DeleteProduct(int id)
-        {
-            return Json(await _service.DeleteProduct(id));
-        }
-        public async Task<JsonResult> DeleteCategory(int id)
-        {
-            return Json(await _categoryService.DeleteCategory(id));
-        }
-        public async Task<JsonResult> DeleteUnit(int id)
-        {
-            return Json(await _unitService.DeleteUnit(id));
-        }
-        public async Task<IActionResult> FillFormCategory(int id)
-        {
-            return PartialView("_TableCategory", await _categoryService.FillFormCategory(id));
-        }
-        public async Task<IActionResult> FillFormUnit(int id)
-        {
-            return PartialView("_TableUnit", await _unitService.FillFormUnit(id));
-        }
+        public async Task<object> GetProductList()=> await _service.GetProductList();
 
-        public async Task<JsonResult> GetProductComboList()
-        {
-            return Json(await _service.GetProductComboList());
-        }
+        public async Task<object> GetCategoryList()=> await _categoryService.GetCategoryList();
+
+        public async Task<object> GetSupplierList()=> await _supplierService.GetSupplierList();
+
+        public async Task<object> GetUnitList()=> await _unitService.GetUnitList();
+
+        public async Task<JsonResult> SaveProduct(ProductViewModel product)=> Json(await _service.SaveProduct(product.ProductModel));
+
+        public async Task<JsonResult> SaveCategory(CategoryModel category)=> Json(await _categoryService.SaveCategory(category));
+
+        public async Task<JsonResult> SaveUnit(UnitModel unit)=> Json(await _unitService.SaveUnit(unit));
+
+        public async Task<JsonResult> DeleteProduct(int id)=> Json(await _service.DeleteProduct(id));
+
+        public async Task<JsonResult> DeleteCategory(int id)=> Json(await _categoryService.DeleteCategory(id));
+
+        public async Task<JsonResult> DeleteUnit(int id) => Json(await _unitService.DeleteUnit(id));
+
+        public async Task<IActionResult> FillFormCategory(int id) => PartialView("_TableCategory", await _categoryService.FillFormCategory(id));
+
+        public async Task<IActionResult> FillFormUnit(int id) => PartialView("_TableUnit", await _unitService.FillFormUnit(id));
+
+        public async Task<JsonResult> GetProductComboList() => Json(await _service.GetProductComboList());
+
         public async Task<IActionResult> FillFormProduct(int id)
         {
             try

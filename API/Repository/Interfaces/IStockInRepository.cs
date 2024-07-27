@@ -9,7 +9,7 @@ namespace API.Repository.Interfaces
         Task<StockInDetailModel> FillFormDetail(int id);
         Task<object> ScanBarcode(string barcode);
         Task<object> Save(StockInModel purchaseOrderModel);
-        Task<object> GetTradeList();
+        Task<object> GetStockInList();
         Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id);
         Task<object> DeleteProductById(int id);
         Task<object> DeleteById(int id);

@@ -14,35 +14,18 @@ namespace MitraKaryaSystem.Controllers
         {
             _roleService = roleService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index()=> View();
 
         [Route("FillGridRole")]
-        public async Task<JsonResult> FillGridRole()
-        {
-            return Json(await _roleService.GetRoleList());
-        }
+        public async Task<JsonResult> FillGridRole() => Json(await _roleService.GetRoleList());
         [HttpPost]
         [Route("SaveRole")]
-        public async Task<IActionResult> SaveRole([FromBody] RoleViewModel request)
-        {
-            return Json(await _roleService.SaveRole(request));
-        }
-
+        public async Task<IActionResult> SaveRole([FromBody] RoleViewModel request) => Json(await _roleService.SaveRole(request));
         [Route("FillFormRole")]
         [HttpPost]
-        public async Task<IActionResult> FillFormRole(int id)
-        {
-            return PartialView("_RoleModal", await _roleService.FillFormRole(id));
-        }
-
+        public async Task<IActionResult> FillFormRole(int id) => PartialView("_RoleModal", await _roleService.FillFormRole(id));
         [Route("DeleteRole")]
         [HttpPost]
-        public async Task<IActionResult> DeleteRole(int id)
-        {
-            return Json(_roleService.DeleteRole(id));
-        }
+        public async Task<IActionResult> DeleteRole(int id) => Json(await _roleService.DeleteRole(id));
     }
 }

@@ -127,7 +127,7 @@ let Table = {
     },
     FillGridSearch: function () {
         let tableID = $("#tableSearch");
-        let data = Common.GetData.Get('/StockIn/GetTradeList');
+        let data = Common.GetData.Get('/StockIn/GetStockInList');
         let columns = [
             { data: 'no' },
             { data: 'date' },

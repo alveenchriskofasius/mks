@@ -26,7 +26,6 @@ namespace API.Repository
                 return Task.FromResult<object>(new { success = false, error = e.Message });
             }
             return Task.FromResult<object>(new { success = true });
-
         }
 
         public async Task<CustomerModel> FillForm(int id)
@@ -53,17 +52,14 @@ namespace API.Repository
             return customerModel;
         }
 
-        public async Task<object> GetList()
+        public async Task<object> GetList() => await _context.Customers.Select(x => new
         {
-            return await _context.Customers.Select(x => new
-            {
-                ID = x.ID,
-                Name = x.Name,
-                ContactNumber = x.ContactNumber,
-                ContactPerson = x.IsSupplier ? x.ContactPerson : "-",
-                IsSupplier = x.IsSupplier ? "Supplier" : "Customer",
-            }).ToListAsync();
-        }
+            ID = x.ID,
+            Name = x.Name,
+            ContactNumber = x.ContactNumber,
+            ContactPerson = x.IsSupplier ? x.ContactPerson : "-",
+            IsSupplier = x.IsSupplier ? "Supplier" : "Customer",
+        }).ToListAsync();
 
         public async Task<object> Save(CustomerModel customer)
         {
@@ -104,6 +100,5 @@ namespace API.Repository
             }
             return Task.FromResult<object>(new { success = true });
         }
-
     }
 }
