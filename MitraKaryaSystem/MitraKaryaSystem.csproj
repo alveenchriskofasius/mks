@@ -4,7 +4,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\PurchaseOrder\**" />
+    <Content Remove="Views\PurchaseOrder\**" />
+    <EmbeddedResource Remove="Views\PurchaseOrder\**" />
+    <None Remove="Views\PurchaseOrder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
@@ -15,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\PurchaseOrder\" />
     <Folder Include="wwwroot\lib\fontawesome\" />
   </ItemGroup>
 
