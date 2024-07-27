@@ -8,10 +8,7 @@ namespace MitraKaryaSystem.Controllers
     {
         private readonly IStockInService _stockInService;
 
-        public StockInController(IStockInService stockInService)
-        {
-            _stockInService = stockInService;
-        }
+        public StockInController(IStockInService stockInService) => _stockInService = stockInService;
         public IActionResult Index() => View();
         public async Task<JsonResult> ScanBarcode(string barcode) => Json(await _stockInService.ScanBarcode(barcode));
         public async Task<IActionResult> FillFormProduct(int id) => PartialView("_FormProduct", await _stockInService.FillFormDetail(id));
