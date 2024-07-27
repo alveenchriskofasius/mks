@@ -9,12 +9,7 @@ namespace MitraKaryaSystem.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-
-        public UserController(IUserService service)
-        {
-            _userService = service;
-        }
-
+        public UserController(IUserService service) => _userService = service;
         public IActionResult Index() => View();
         [Route("GetUserList")]
         public async Task<JsonResult> GetUserList() => Json(await _userService.GetUserList());

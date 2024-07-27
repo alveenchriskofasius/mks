@@ -19,17 +19,8 @@ namespace MitraKaryaSystem.Controllers
             _unitService = unitService;
             _supplierService = supplierService;
         }
-        public IActionResult Index()=> View();
-        public async Task<IActionResult> Form(int id)
-        {
-            var data = new ProductViewModel();
-            if (id != 0)
-            {
-                data.ProductModel = await _service.FillFormProduct(id);
-                return View(data);
-            }
-            return View(data);
-        }
+        public IActionResult Index() => View();
+        public async Task<IActionResult> Form(int id) => View(await _service.FillFormProduct(id));
         public async Task<object> GetProductList()=> await _service.GetProductList();
 
         public async Task<object> GetCategoryList()=> await _categoryService.GetCategoryList();

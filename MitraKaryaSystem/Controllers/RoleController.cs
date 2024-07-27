@@ -10,10 +10,7 @@ namespace MitraKaryaSystem.Controllers
     {
         private readonly IRoleService _roleService;
 
-        public RoleController(IRoleService roleService)
-        {
-            _roleService = roleService;
-        }
+        public RoleController(IRoleService roleService) => _roleService = roleService;
         public IActionResult Index()=> View();
 
         [Route("FillGridRole")]

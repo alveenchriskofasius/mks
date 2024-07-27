@@ -10,12 +10,9 @@ namespace MitraKaryaSystem.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-        public AuthController(IAuthService authService)
-        {
-            _authService = authService;
-        }
+        public AuthController(IAuthService authService) => _authService = authService;
         [AllowAnonymous]
-        public IActionResult Login()=> View();
+        public IActionResult Login() => View();
 
         public async Task<IActionResult> Logout()
         {
@@ -40,6 +37,6 @@ namespace MitraKaryaSystem.Controllers
             return View();
         }
 
-        public IActionResult AccessDenied()=> View();
+        public IActionResult AccessDenied() => View();
     }
 }
