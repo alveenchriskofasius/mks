@@ -32,21 +32,6 @@ namespace API.Context.SP
         {
             return Procedures;
         }
-
-        protected void OnModelCreatingGeneratedProcedures(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<GetProductListResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<GetStockInListResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspBarcodeScanResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspGenerateNoResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspGetDetailListByIdResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspGetPermissionListResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspGetProductComboListResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspGetUserPermissionListResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspUserAddResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspUserGetResult>().HasNoKey().ToView(null);
-            modelBuilder.Entity<uspUserLoginResult>().HasNoKey().ToView(null);
-        }
     }
 
     public partial class MKSSPContextProcedures : IMKSSPContextProcedures
@@ -271,35 +256,35 @@ namespace API.Context.SP
                 new SqlParameter
                 {
                     ParameterName = "Name",
-                    Size = -1,
+                    Size = 50,
                     Value = Name ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "PhoneNumber",
-                    Size = -1,
+                    Size = 13,
                     Value = PhoneNumber ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Username",
-                    Size = -1,
+                    Size = 50,
                     Value = Username ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Email",
-                    Size = -1,
+                    Size = 50,
                     Value = Email ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Password",
-                    Size = -1,
+                    Size = 256,
                     Value = Password ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
@@ -312,7 +297,7 @@ namespace API.Context.SP
                 new SqlParameter
                 {
                     ParameterName = "KTP",
-                    Size = -1,
+                    Size = 16,
                     Value = KTP ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
@@ -405,35 +390,35 @@ namespace API.Context.SP
                 new SqlParameter
                 {
                     ParameterName = "Name",
-                    Size = -1,
+                    Size = 50,
                     Value = Name ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "PhoneNumber",
-                    Size = -1,
+                    Size = 13,
                     Value = PhoneNumber ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Username",
-                    Size = -1,
+                    Size = 50,
                     Value = Username ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Email",
-                    Size = -1,
+                    Size = 50,
                     Value = Email ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
                 new SqlParameter
                 {
                     ParameterName = "Password",
-                    Size = -1,
+                    Size = 256,
                     Value = Password ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },
@@ -446,7 +431,7 @@ namespace API.Context.SP
                 new SqlParameter
                 {
                     ParameterName = "KTP",
-                    Size = -1,
+                    Size = 16,
                     Value = KTP ?? Convert.DBNull,
                     SqlDbType = System.Data.SqlDbType.VarChar,
                 },

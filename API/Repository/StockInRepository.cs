@@ -100,9 +100,9 @@ namespace API.Repository
             }
             return purchaseOrderDetail;
         }
-        public async Task<object> GetStockInList()=> await _procedure.GetStockInListAsync();
+        public async Task<object> GetStockInList() => await _procedure.GetStockInListAsync();
 
-        public Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id)=> _procedure.uspGetDetailListByIdAsync(id);
+        public Task<List<uspGetDetailListByIdResult>> GetDetailListById(int id) => _procedure.uspGetDetailListByIdAsync(id);
         public async Task<object> Save(StockInModel stockInModel)
         {
             try
@@ -114,7 +114,7 @@ namespace API.Repository
                     {
                         Date = stockInModel.Date,
                         StatusID = 1,
-                        No =  _procedure.uspGenerateNoAsync("SI", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
+                        No = _procedure.uspGenerateNoAsync("SI", stockInModel.Date).Result.FirstOrDefault().NewPONumber,
                         CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name,
                         TradeTypeID = 3
                     };
@@ -194,8 +194,6 @@ namespace API.Repository
                 return new { success = false, result = e.Message };
             }
         }
-
-
         public async Task<object> ScanBarcode(string barcode) => (await _procedure.uspBarcodeScanAsync(barcode)) == null ? await Task.FromResult<object>(new { success = false, result = "Barcode not found" }) : (await _procedure.uspBarcodeScanAsync(barcode)).FirstOrDefault();
     }
 }

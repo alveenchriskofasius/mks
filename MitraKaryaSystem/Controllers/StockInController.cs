@@ -11,7 +11,7 @@ namespace MitraKaryaSystem.Controllers
         public StockInController(IStockInService stockInService) => _stockInService = stockInService;
         public IActionResult Index() => View();
         public async Task<JsonResult> ScanBarcode(string barcode) => Json(await _stockInService.ScanBarcode(barcode));
-        public async Task<IActionResult> FillFormProduct(int id) => PartialView("_FormProduct", await _stockInService.FillFormDetail(id));
+        public async Task<IActionResult> FillFormProduct(int id) => PartialView("_FormDetail", await _stockInService.FillFormDetail(id));
         public async Task<IActionResult> FillForm(int id) => PartialView("_FormHeader", await _stockInService.FillForm(id));
         [HttpPost]
         public async Task<JsonResult> Save(StockInModel stockIn) => Json(await _stockInService.Save(stockIn));

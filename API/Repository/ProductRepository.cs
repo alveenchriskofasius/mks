@@ -62,9 +62,10 @@ namespace API.Repository
         {
             try
             {
-                if (productModel.Barcode.Length > 50)
+                if (productModel.Barcode != null)
                 {
-                    return Task.FromResult<object>(new { success = false, error = "Barcode maximum is 50 length" });
+                    if (productModel.Barcode.Length > 50)
+                        return Task.FromResult<object>(new { success = false, error = "Barcode maximum is 50 length" });
                 }
                 if (productModel.ID == 0)
                 {

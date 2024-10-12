@@ -16,7 +16,7 @@ namespace API.Context.SP
         public string Description { get; set; }
         [Column("UnitPrice", TypeName = "decimal(10,2)")]
         public decimal UnitPrice { get; set; }
-        public int StockQuantity { get; set; }
+        public int? StockQuantity { get; set; }
         public short SupplierID { get; set; }
         public string SupplierName { get; set; }
     }
