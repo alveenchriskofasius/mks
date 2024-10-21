@@ -63,6 +63,26 @@ namespace API.Context.SP
             return _;
         }
 
+        public virtual async Task<List<GetSalesOrderListResult>> GetSalesOrderListAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<GetSalesOrderListResult>("EXEC @returnValue = [dbo].[GetSalesOrderList]", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
         public virtual async Task<List<GetStockInListResult>> GetStockInListAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
@@ -195,7 +215,7 @@ namespace API.Context.SP
             return _;
         }
 
-        public virtual async Task<List<uspGetProductComboListResult>> uspGetProductComboListAsync(OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        public virtual async Task<List<uspGetProductComboListResult>> uspGetProductComboListAsync(string Name, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
         {
             var parameterreturnValue = new SqlParameter
             {
@@ -206,9 +226,42 @@ namespace API.Context.SP
 
             var sqlParameters = new []
             {
+                new SqlParameter
+                {
+                    ParameterName = "Name",
+                    Size = 50,
+                    Value = Name ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.VarChar,
+                },
                 parameterreturnValue,
             };
-            var _ = await _context.SqlQueryAsync<uspGetProductComboListResult>("EXEC @returnValue = [dbo].[uspGetProductComboList]", sqlParameters, cancellationToken);
+            var _ = await _context.SqlQueryAsync<uspGetProductComboListResult>("EXEC @returnValue = [dbo].[uspGetProductComboList] @Name = @Name", sqlParameters, cancellationToken);
+
+            returnValue?.SetValue(parameterreturnValue.Value);
+
+            return _;
+        }
+
+        public virtual async Task<List<uspGetSalesOrderItemListResult>> uspGetSalesOrderItemListAsync(int? TradeID, OutputParameter<int> returnValue = null, CancellationToken cancellationToken = default)
+        {
+            var parameterreturnValue = new SqlParameter
+            {
+                ParameterName = "returnValue",
+                Direction = System.Data.ParameterDirection.Output,
+                SqlDbType = System.Data.SqlDbType.Int,
+            };
+
+            var sqlParameters = new []
+            {
+                new SqlParameter
+                {
+                    ParameterName = "TradeID",
+                    Value = TradeID ?? Convert.DBNull,
+                    SqlDbType = System.Data.SqlDbType.Int,
+                },
+                parameterreturnValue,
+            };
+            var _ = await _context.SqlQueryAsync<uspGetSalesOrderItemListResult>("EXEC @returnValue = [dbo].[uspGetSalesOrderItemList] @TradeID = @TradeID", sqlParameters, cancellationToken);
 
             returnValue?.SetValue(parameterreturnValue.Value);
 

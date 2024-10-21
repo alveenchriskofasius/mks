@@ -19,6 +19,10 @@
          "ObjectType": 1
       },
       {
+         "Name": "[dbo].[GetSalesOrderList]",
+         "ObjectType": 1
+      },
+      {
          "Name": "[dbo].[GetStockInList]",
          "ObjectType": 1
       },
@@ -40,6 +44,10 @@
       },
       {
          "Name": "[dbo].[uspGetProductComboList]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[uspGetSalesOrderItemList]",
          "ObjectType": 1
       },
       {

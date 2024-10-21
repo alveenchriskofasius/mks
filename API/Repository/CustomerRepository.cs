@@ -60,7 +60,7 @@ namespace API.Repository
             ContactPerson = x.IsSupplier ? x.ContactPerson : "-",
             IsSupplier = x.IsSupplier ? "Supplier" : "Customer",
         }).ToListAsync();
-
+        public async Task<List<Customer>> GetListModel() => await _context.Customers.ToListAsync();
         public async Task<object> Save(CustomerModel customer)
         {
             try

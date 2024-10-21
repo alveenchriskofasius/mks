@@ -1,4 +1,5 @@
-﻿using API.Repository.Interfaces;
+﻿using API.Context.Table;
+using API.Repository.Interfaces;
 using API.Services.Interfaces;
 using MitraKaryaSystem.Models;
 
@@ -27,6 +28,11 @@ namespace API.Services
         public async Task<object> Delete(int id)
         {
             return await _repository.Delete(id);
+        }
+
+        public async Task<List<Customer>> GetListModel()
+        {
+            return await _repository.GetListModel();
         }
     }
 }

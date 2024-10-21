@@ -5,16 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Context.SP
 {
-    public partial class uspGetProductComboListResult
+    public partial class uspGetSalesOrderItemListResult
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int? ProductID { get; set; }
+        public string Product { get; set; }
+        public string Supplier { get; set; }
+        public short SupplierID { get; set; }
+        public string Barcode { get; set; }
         [Column("UnitPrice", TypeName = "decimal(10,2)")]
         public decimal UnitPrice { get; set; }
-        public short SupplierID { get; set; }
-        public string SupplierName { get; set; }
-        public string Barcode { get; set; }
+        public int Quantity { get; set; }
         public string Unit { get; set; }
         public int StockQuantity { get; set; }
+        [Column("SubTotal", TypeName = "decimal(21,2)")]
+        public decimal? SubTotal { get; set; }
     }
 }

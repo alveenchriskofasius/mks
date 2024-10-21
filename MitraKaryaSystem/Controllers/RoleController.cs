@@ -11,7 +11,7 @@ namespace MitraKaryaSystem.Controllers
         private readonly IRoleService _roleService;
 
         public RoleController(IRoleService roleService) => _roleService = roleService;
-        public IActionResult Index()=> View();
+        public IActionResult Index() => View();
 
         [Route("FillGridRole")]
         public async Task<JsonResult> FillGridRole() => Json(await _roleService.GetRoleList());

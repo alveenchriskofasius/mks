@@ -1,0 +1,50 @@
+﻿@using API.Models
+@{
+    ViewData["Title"] = "Sales Order";
+}
+<div class="card">
+    <div class="card-header" style="background-color:#f0f0f0">
+        <div class="card-title">
+            <h5>Sales Order</h5>
+        </div>
+        <div class="card-tools">
+            <button type="button" id="buttonNew" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-circle-plus"></i> Add</button>
+            <button type="button" id="buttonSearch" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="badge rounded-pill text-bg-warning" id="salesOrderStatus">Draft</span>
+                </div>
+            </div>
+            <div class="card-body" id="salesOrderHeaderBody">
+                <partial name="_Form" model="new SalesOrderViewModel()" />
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <label for="barcode" class="form-label col-sm-2">Select Product</label>
+                    <div class="col-md-10 col-lg-10">
+                        <select class="form-control select2" id="selectProduct" autofocus></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <partial name="_TableProduct" />
+
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary" id="buttonSave">Save</button>
+        <button type="submit" class="btn btn-success" id="buttonPay">Save & Pay</button>
+        <a class="btn btn-secondary" asp-action="Index" asp-controller="Home" id="buttonCancel">Cancel</a>
+    </div>
+</div>
+<partial name="_Table" />
+
+@section Scripts {
+    <script src="~/js/SalesOrder.js" asp-append-version="true"></script>
+    <script src="~/js/Common.js" asp-append-version="true"></script>
+}

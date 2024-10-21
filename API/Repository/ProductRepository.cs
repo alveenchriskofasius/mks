@@ -57,7 +57,7 @@ namespace API.Repository
         }
         public async Task<object> GetProductList() => Task.FromResult<object>(await _procedures.GetProductListAsync());
 
-        public async Task<object> GetProductComboList() => Task.FromResult<object>(await _procedures.uspGetProductComboListAsync());
+        public async Task<object> GetProductComboList(string name) => Task.FromResult<object>(await _procedures.uspGetProductComboListAsync(name));
         public async Task<object> SaveProduct(ProductModel productModel)
         {
             try

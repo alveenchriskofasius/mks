@@ -118,7 +118,7 @@ namespace API.Repository
                         CreatedBy = _httpContextAccessor.HttpContext.User.Identity.Name,
                         TradeTypeID = 3
                     };
-                    _context.Trades.Add(newTrade);
+                    await _context.Trades.AddAsync(newTrade);
                     await _context.SaveChangesAsync();
                     tradeID = newTrade.ID;
                 }
@@ -171,7 +171,7 @@ namespace API.Repository
                         Quantity = stockInDetailModel.Quantity
                     };
 
-                    _context.StockInItems.Add(newProduct);
+                    await _context.StockInItems.AddAsync(newProduct);
                 }
                 else
                 {
@@ -184,7 +184,8 @@ namespace API.Repository
                     existingProduct.Quantity = stockInDetailModel.Quantity;
                     _context.StockInItems.Update(existingProduct);
                 }
-
+                product.StockQuantity += stockInDetailModel.Quantity;
+                _context.Products.Update(product);
                 await _context.SaveChangesAsync();
 
                 return new { success = true };

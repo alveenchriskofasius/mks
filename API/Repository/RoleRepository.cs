@@ -42,7 +42,7 @@ namespace API.Repository
             return permissionModels;
         }
 
-        public async Task<object> GetRoleList()=> await _context.Roles.ToListAsync();
+        public async Task<object> GetRoleList() => await _context.Roles.ToListAsync();
         public async Task<object> SaveRole(RoleViewModel role)
         {
             try

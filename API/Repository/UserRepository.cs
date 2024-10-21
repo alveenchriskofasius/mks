@@ -15,7 +15,7 @@ namespace API.Repository
             _sp = procedures;
         }
 
-        public async Task<object> GetUserList()=> await _context.Users.Select(x => new
+        public async Task<object> GetUserList() => await _context.Users.Select(x => new
         {
             ID = x.ID,
             UserName = x.UserName,
