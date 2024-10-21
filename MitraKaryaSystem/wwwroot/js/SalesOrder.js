@@ -348,6 +348,7 @@ let Form = {
                 $('#salesOrderHeaderBody').html(result);
                 Control.SelectProduct();
                 Table.FillGridProduct(id, isReset);
+                Control.CalculateGrandTotal();
             },
             error: function (error) {
                 toastr.error(error, 'Error load data');
